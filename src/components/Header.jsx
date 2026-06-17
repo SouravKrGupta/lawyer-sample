@@ -1,18 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { Search } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Moon, Search, Sun } from 'lucide-react';
 import SideMenu from './SideMenu';
 import SearchOverlay from './SearchOverlay';
+import { useTheme } from '../theme/ThemeContext';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { isDark, toggleTheme } = useTheme();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const solidHeader = scrolled || !isHomePage;
+  const actionClass = solidHeader
+    ? 'text-[var(--text-primary)] hover:text-[var(--accent-strong)]'
+    : 'text-[var(--nav-on-image)] hover:text-[var(--nav-on-image-active)]';
 
   return (
     <>
@@ -21,38 +31,44 @@ const Header = () => {
       >
         <div
           className={`absolute inset-0 transition-all duration-500 ${
-            scrolled
-              ? 'bg-[#f5f2eb]/95 backdrop-blur-md shadow-sm'
-              : 'bg-linear-to-r from-[#f5f2eb]/92 via-[#d9cdbd]/72 to-[#081424]/78'
+            solidHeader ? 'backdrop-blur-md shadow-[var(--shadow-soft)]' : 'backdrop-blur-sm'
           }`}
+          style={solidHeader ? { backgroundColor: 'var(--header-solid)' } : { backgroundImage: 'var(--header-gradient)' }}
         ></div>
-        <div className={`relative w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-12 transition-all duration-500 ${scrolled ? 'py-3' : 'py-4 md:py-5'}`}>
+        <div className={`relative w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-12 transition-all duration-500 ${solidHeader ? 'py-3' : 'py-4 md:py-5'}`}>
           <div className="flex items-center justify-between">
-            <a href="/" className="flex items-center group">
-              <div className="text-[#0a1f3a]">
+            <Link to="/" className="flex items-center group">
+              <div className="text-[var(--text-primary)]">
                 <div className="font-serif text-2xl md:text-[30px] tracking-wide font-semibold leading-none">
                   LAWYER
                 </div>
-                <div className="text-[8px] md:text-[9px] tracking-[0.3em] mt-1 text-[#0a1f3a]/70">
+                <div className="mt-1 text-[8px] tracking-[0.3em] text-[color:var(--text-muted)] md:text-[9px]">
                   LEGAL SERVICES
                 </div>
               </div>
-            </a>
-            <div className="flex items-center gap-5 md:gap-6">
+            </Link>
+            <div className="flex items-center gap-3 md:gap-4">
+              <button
+                onClick={toggleTheme}
+                className={`flex h-10 w-10 items-center justify-center rounded-full border transition-colors ${
+                  solidHeader
+                    ? 'border-[color:var(--border)] bg-[var(--panel)]'
+                    : 'border-[color:var(--border-inverse)] bg-[color:var(--overlay-soft)] backdrop-blur-sm'
+                } ${actionClass}`}
+                aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+              >
+                {isDark ? <Sun size={17} strokeWidth={1.7} /> : <Moon size={17} strokeWidth={1.7} />}
+              </button>
               <button
                 onClick={() => setSearchOpen(true)}
-                className={`transition-colors ${
-                  scrolled ? 'text-[#0a1f3a] hover:text-[#7a4b2e]' : 'text-[#f8f1e5] hover:text-[#e1b27c]'
-                }`}
+                className={`transition-colors ${actionClass}`}
                 aria-label="Search"
               >
                 <Search size={20} strokeWidth={1.5} />
               </button>
               <button
                 onClick={() => setMenuOpen(true)}
-                className={`transition-colors flex flex-col gap-[5px] ${
-                  scrolled ? 'text-[#0a1f3a] hover:text-[#7a4b2e]' : 'text-[#f8f1e5] hover:text-[#e1b27c]'
-                }`}
+                className={`flex flex-col gap-[5px] transition-colors ${actionClass}`}
                 aria-label="Menu"
               >
                 <span className="block w-6 h-px bg-current"></span>

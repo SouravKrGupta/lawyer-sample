@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import DisclaimerModal from '../components/DisclaimerModal';
 import Header from '../components/Header';
 import Section from '../components/Section';
@@ -13,7 +13,7 @@ const HomePage = () => {
   const [popupOpen, setPopupOpen] = useState(true);
 
   return (
-    <div className="bg-[#f5f2eb] min-h-screen text-[#0a1f3a] font-sans overflow-x-hidden">
+    <div className="theme-page min-h-screen overflow-x-hidden font-sans">
       {!accepted && <DisclaimerModal onAccept={() => setAccepted(true)} />}
       {accepted && popupOpen && <NewsPopup onClose={() => setPopupOpen(false)} />}
       <Header />

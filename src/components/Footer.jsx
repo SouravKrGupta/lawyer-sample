@@ -1,43 +1,49 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { footerLinks, officeLocations } from '../mock';
 import { ArrowUp } from 'lucide-react';
+import { footerLinks } from '../mock';
 
 const Footer = () => {
   const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <footer className="relative bg-[#0a1f3a] text-[#f5f2eb] pt-20 pb-8 px-6 md:px-12 lg:px-20">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-14 border-b border-white/10">
+    <footer className="relative bg-[var(--footer-bg)] px-6 pb-8 pt-20 text-[var(--text-on-dark)] md:px-12 lg:px-20">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 gap-10 border-b border-[color:var(--border-inverse)] pb-14 md:grid-cols-12">
           <div className="md:col-span-4">
-            <div className="font-serif text-3xl tracking-wide font-semibold leading-none">
-              LAWYER
+            <div className="font-serif text-3xl font-semibold leading-none tracking-wide">LAWYER</div>
+            <div className="mt-1 text-[9px] tracking-[0.3em] text-[color:var(--text-on-dark-muted)]">
+              LEGAL SERVICES
             </div>
-            <div className="text-[9px] tracking-[0.3em] mt-1 opacity-70">LEGAL SERVICES</div>
-            <p className="mt-8 text-sm leading-relaxed text-white/70 max-w-sm">
-              One of India's oldest and most prestigious full-service law firms, delivering pragmatic commercial solutions for over a century.
+            <p className="mt-8 max-w-sm text-sm leading-relaxed text-[color:var(--text-on-dark-muted)]">
+              One of India&apos;s oldest and most prestigious full-service law firms, delivering
+              pragmatic commercial solutions for over a century.
             </p>
-            <div className="flex gap-4 mt-8">
-              {['in', 'X', 'f', 'YT'].map((label, i) => (
+            <div className="mt-8 flex gap-4">
+              {['in', 'X', 'f', 'YT'].map((label) => (
                 <a
-                  key={i}
+                  key={label}
                   href="#"
-                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:border-[#d4a574] hover:text-[#d4a574] transition-colors text-xs font-medium"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--border-inverse)] text-xs font-medium transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
                 >
                   {label}
                 </a>
               ))}
             </div>
           </div>
-          <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+
+          <div className="grid grid-cols-2 gap-8 md:col-span-8 md:grid-cols-4">
             {Object.entries(footerLinks).map(([title, items]) => (
               <div key={title}>
-                <h4 className="text-[11px] uppercase tracking-[0.25em] text-[#d4a574] mb-5">{title}</h4>
+                <h4 className="mb-5 text-[11px] uppercase tracking-[0.25em] text-[var(--accent)]">
+                  {title}
+                </h4>
                 <ul className="space-y-3">
                   {items.map((item) => (
                     <li key={item.label}>
-                      <Link to={item.href} className="text-sm text-white/70 hover:text-white transition-colors">
+                      <Link
+                        to={item.href}
+                        className="text-sm text-[color:var(--text-on-dark-muted)] transition-colors hover:text-[var(--text-on-dark)]"
+                      >
                         {item.label}
                       </Link>
                     </li>
@@ -48,25 +54,33 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="py-8 border-b border-white/10">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-[#d4a574]">Jamshedpur Office</p>
+        <div className="border-b border-[color:var(--border-inverse)] py-8">
+          <p className="text-[11px] uppercase tracking-[0.25em] text-[var(--accent)]">
+            Jamshedpur Office
+          </p>
         </div>
 
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-xs text-white/50">
-            © {new Date().getFullYear()} Lawyer. All Rights Reserved.
+        <div className="flex flex-col items-center justify-between gap-4 pt-8 md:flex-row">
+          <div className="text-xs text-[color:var(--text-on-dark-muted)]">
+            (c) {new Date().getFullYear()} Lawyer. All Rights Reserved.
           </div>
-          <div className="flex items-center gap-6 text-xs text-white/60">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Disclaimer</a>
-            <a href="#" className="hover:text-white transition-colors">Cookies</a>
+          <div className="flex items-center gap-6 text-xs text-[color:var(--text-on-dark-muted)]">
+            <a href="#" className="transition-colors hover:text-[var(--text-on-dark)]">
+              Privacy Policy
+            </a>
+            <a href="#" className="transition-colors hover:text-[var(--text-on-dark)]">
+              Disclaimer
+            </a>
+            <a href="#" className="transition-colors hover:text-[var(--text-on-dark)]">
+              Cookies
+            </a>
           </div>
           <button
             onClick={scrollTop}
-            className="group flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/70 hover:text-[#d4a574] transition-colors"
+            className="group flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[color:var(--text-on-dark-muted)] transition-colors hover:text-[var(--accent)]"
           >
             Back to Top
-            <ArrowUp size={14} className="group-hover:-translate-y-1 transition-transform" />
+            <ArrowUp size={14} className="transition-transform group-hover:-translate-y-1" />
           </button>
         </div>
       </div>

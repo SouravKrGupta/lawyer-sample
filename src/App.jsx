@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DisclaimerModal from './components/DisclaimerModal';
 import HomePage from './pages/HomePage';
@@ -9,10 +9,11 @@ import NewsEvents from './pages/NewsEvents';
 import Team from './pages/Team';
 import Legacy from './pages/Legacy';
 import Contact from './pages/Contact';
+import { ThemeProvider } from './theme/ThemeContext';
 
 const DISCLAIMER_KEY = 'lawyer-disclaimer-accepted';
 
-function App() {
+function AppShell() {
   const [accepted, setAccepted] = useState(() => {
     if (typeof window === 'undefined') return false;
     return localStorage.getItem(DISCLAIMER_KEY) === 'true';
@@ -40,6 +41,14 @@ function App() {
         </Routes>
       </BrowserRouter>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppShell />
+    </ThemeProvider>
   );
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { sections } from '../mock';
 
 const SectionNav = () => {
@@ -34,7 +34,9 @@ const SectionNav = () => {
         >
           <span
             className={`text-[11px] tracking-[0.25em] uppercase transition-all duration-300 drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)] ${
-              active === i ? 'text-[#f3c48c]' : 'text-[#f8f1e5]/82 group-hover:text-[#f8f1e5]'
+              active === i
+                ? 'text-[var(--nav-on-image-active)]'
+                : 'text-[color:var(--nav-on-image-muted)] group-hover:text-[var(--nav-on-image)]'
             }`}
           >
             {s.label}
@@ -42,8 +44,8 @@ const SectionNav = () => {
           <span
             className={`block rounded-full border transition-all duration-300 shadow-[0_0_14px_rgba(0,0,0,0.28)] ${
               active === i
-                ? 'w-3 h-3 bg-[#e1b27c] border-[#e1b27c]'
-                : 'w-2 h-2 bg-transparent border-[#f8f1e5]/60 group-hover:border-[#f8f1e5]'
+                ? 'h-3 w-3 border-[var(--nav-on-image-active)] bg-[var(--nav-on-image-active)]'
+                : 'h-2 w-2 border-[color:var(--nav-on-image-muted)] bg-transparent group-hover:border-[var(--nav-on-image)]'
             }`}
           ></span>
         </button>

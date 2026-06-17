@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, Search } from 'lucide-react';
+import { useState } from 'react';
+import { Search, X } from 'lucide-react';
 
 const FILTERS = ['All', 'People', 'Expertise', 'Insights', 'News'];
 
@@ -9,41 +9,61 @@ const SearchOverlay = ({ open, onClose }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-[80] bg-[#f5f2eb] transition-all duration-500 ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+      className={`fixed inset-0 z-[80] bg-[var(--panel-muted)] transition-all duration-500 ${
+        open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
+      }`}
     >
-      <div className="absolute top-6 right-6 md:top-8 md:right-12">
-        <button onClick={onClose} className="text-[#0a1f3a] hover:text-[#7a4b2e] transition-colors" aria-label="Close">
+      <div className="absolute right-6 top-6 md:right-12 md:top-8">
+        <button
+          onClick={onClose}
+          className="text-[var(--text-primary)] transition-colors hover:text-[var(--accent-strong)]"
+          aria-label="Close"
+        >
           <X size={26} strokeWidth={1.5} />
         </button>
       </div>
-      <div className="max-w-4xl mx-auto px-6 pt-32 md:pt-40">
-        <h3 className="font-serif text-[#0a1f3a] text-2xl mb-2">Search</h3>
-        <p className="text-xs italic text-[#0a1f3a]/60 mb-6">(Minimum 3 characters)</p>
-        <div className="flex items-center gap-3 border-b-2 border-[#0a1f3a] pb-3">
-          <Search size={22} strokeWidth={1.5} className="text-[#0a1f3a]" />
+
+      <div className="mx-auto max-w-4xl px-6 pt-32 md:pt-40">
+        <h3 className="mb-2 font-serif text-2xl text-[var(--text-primary)]">Search</h3>
+        <p className="mb-6 text-xs italic text-[color:var(--text-muted)]">
+          (Minimum 3 characters)
+        </p>
+        <div className="flex items-center gap-3 border-b-2 border-[color:var(--border-strong)] pb-3">
+          <Search size={22} strokeWidth={1.5} className="text-[var(--text-primary)]" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             type="text"
             placeholder="Search for people, expertise, insights..."
-            className="flex-1 bg-transparent outline-none text-[#0a1f3a] placeholder:text-[#0a1f3a]/40 font-serif text-xl md:text-2xl"
+            className="flex-1 bg-transparent font-serif text-xl text-[var(--text-primary)] outline-none placeholder:text-[color:var(--text-muted)] md:text-2xl"
           />
         </div>
+
         {query.length >= 3 && (
-          <a href="#" className="inline-block mt-4 text-xs uppercase tracking-[0.2em] text-[#7a4b2e] hover:underline">
-            See all results for "{query}" →
+          <a
+            href="#"
+            className="mt-4 inline-block text-xs uppercase tracking-[0.2em] text-[var(--accent)] hover:underline"
+          >
+            See all results for "{query}" {'->'}
           </a>
         )}
+
         <div className="mt-10">
-          <div className="flex flex-wrap gap-2 items-center">
-            <span className="text-xs uppercase tracking-[0.2em] text-[#0a1f3a]/60 mr-2">Filters:</span>
-            {FILTERS.map((f) => (
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="mr-2 text-xs uppercase tracking-[0.2em] text-[color:var(--text-muted)]">
+              Filters:
+            </span>
+            {FILTERS.map((filter) => (
               <button
-                key={f}
-                onClick={() => setActive(f)}
-                className={`px-4 py-1.5 text-xs uppercase tracking-[0.15em] border transition-colors ${active === f ? 'bg-[#0a1f3a] text-[#f5f2eb] border-[#0a1f3a]' : 'border-[#0a1f3a]/30 text-[#0a1f3a] hover:border-[#0a1f3a]'}`}
+                key={filter}
+                onClick={() => setActive(filter)}
+                className={`border px-4 py-1.5 text-xs uppercase tracking-[0.15em] transition-colors ${
+                  active === filter
+                    ? 'border-[var(--text-primary)] bg-[var(--text-primary)] text-[var(--page-bg)]'
+                    : 'border-[color:var(--border-strong)] text-[var(--text-primary)] hover:border-[var(--text-primary)]'
+                }`}
               >
-                {f}
+                {filter}
               </button>
             ))}
           </div>
