@@ -97,16 +97,10 @@ const Section = ({ data, index }) => {
         <button
           type="button"
           onClick={goToNextSection}
-          className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 items-center gap-3 rounded-full border border-[color:var(--border)] bg-[var(--panel-muted)] px-4 py-3 text-left text-[var(--text-primary)] shadow-[var(--shadow-panel)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 md:bottom-8 md:left-auto md:right-16 md:translate-x-0"
+          className="absolute bottom-6 left-1/2 z-10 flex h-11 w-11 -translate-x-1/2 items-center justify-center rounded-full border border-[color:var(--border-inverse)] bg-[color:var(--overlay-soft)] text-[var(--nav-on-image)] shadow-[0_12px_30px_rgba(0,0,0,0.22)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-[var(--nav-on-image-active)] hover:text-[var(--nav-on-image-active)] md:bottom-8 md:left-auto md:right-24 md:translate-x-0"
           aria-label="Scroll to the next section"
         >
-          <div className="flex flex-col gap-1">
-            <span className="text-[10px] uppercase tracking-[0.32em] text-[var(--accent)]">Scroll</span>
-            <span className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]">Explore more</span>
-          </div>
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--text-primary)] text-[var(--page-bg)]">
-            <ArrowRight size={16} strokeWidth={1.8} className="rotate-90" />
-          </div>
+          <ArrowRight size={18} strokeWidth={1.8} className="rotate-90" />
         </button>
       )}
     </section>

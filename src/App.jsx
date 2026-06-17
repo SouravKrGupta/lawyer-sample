@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DisclaimerModal from './components/DisclaimerModal';
+import NewsPopup from './components/NewsPopup';
 import HomePage from './pages/HomePage';
 import PracticeAreas from './pages/PracticeAreas';
 import FocusAreas from './pages/FocusAreas';
@@ -11,23 +12,14 @@ import Legacy from './pages/Legacy';
 import Contact from './pages/Contact';
 import { ThemeProvider } from './theme/ThemeContext';
 
-const DISCLAIMER_KEY = 'lawyer-disclaimer-accepted';
-
 function AppShell() {
-  const [accepted, setAccepted] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return localStorage.getItem(DISCLAIMER_KEY) === 'true';
-  });
-
-  useEffect(() => {
-    if (accepted) {
-      localStorage.setItem(DISCLAIMER_KEY, 'true');
-    }
-  }, [accepted]);
+  const [accepted, setAccepted] = useState(false);
+  const [popupOpen, setPopupOpen] = useState(true);
 
   return (
     <div className="App">
       {!accepted && <DisclaimerModal onAccept={() => setAccepted(true)} />}
+      {accepted && popupOpen && <NewsPopup onClose={() => setPopupOpen(false)} />}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />

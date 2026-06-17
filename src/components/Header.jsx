@@ -54,7 +54,7 @@ const Header = () => {
                   solidHeader
                     ? 'border-[color:var(--border)] bg-[var(--panel)]'
                     : 'border-[color:var(--border-inverse)] bg-[color:var(--overlay-soft)] backdrop-blur-sm'
-                } ${actionClass}`}
+                } ${actionClass} ${isHomePage ? 'lg:hidden' : ''}`}
                 aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
               >
                 {isDark ? <Sun size={17} strokeWidth={1.7} /> : <Moon size={17} strokeWidth={1.7} />}
